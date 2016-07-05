@@ -25,9 +25,6 @@ public class DashDefaults {
    * (3)JARファイルを指定しない場合、DASHのトップディレクトリ
    */
   public DashDefaults() {
-    // jar:file:/home/hara/dash/dash-1.0/Dash.jar!/adips97/DashDefaults.class
-    // または
-    // file:/home/hara/dash/dash-1.0/classes/adips97/DashDefaults.class
     URL url = this.getClass().getResource("DashDefaults.class");
     String protocol = url.getProtocol();
     String classfile = null;
@@ -78,27 +75,9 @@ public class DashDefaults {
       String key = (String)e.nextElement();
       String defaultValue = properties.getProperty(key);
       String systemValue = System.getProperty(key);
-      //System.out.println(key);
       if (systemValue == null)
         System.setProperty(key, defaultValue);
     }
-    /*
-String ss = properties.toString();
- try {
-Properties prop = new Properties();
-// プロパティの追加
-prop.setProperty( "USERNAME", "SCOTT" );
-prop.setProperty( "PASSWORD", "TIGER" );
-// プロパティの書き出し
-FileOutputStream fos = new FileOutputStream( "simulator.properties" );
-properties.store( fos, "idea Properties" );
-fos.close();
- } catch (FileNotFoundException e) {
-   System.err.println("warning: "+DEFAULTSFILE+" not found");
- } catch (IOException e) {
-   e.printStackTrace();
- }
-    */
     return properties;
   }
 
@@ -129,19 +108,6 @@ fos.close();
     } catch (Exception e) {
       e.printStackTrace();
     }
-
-    /*
-    EarthGate eg = new EarthGate(false);
-    try {
-      Class c = eg.loadClass("baseProcess.dashSample.SimpleWindow");
-      String cl = c.getClassLoader().getClass().getName();
-      System.out.println(c+"(loader="+cl+")");
-
-      Object obj = c.newInstance();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    */
   }
 }
 
