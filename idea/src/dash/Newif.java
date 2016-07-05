@@ -305,17 +305,18 @@ public class Newif extends JFrame implements ActionListener, NewifItface {
     // ACLエディタを格納するパネルを作成します
     JPanel AclEditorPanel = new JPanel (new BorderLayout() );
     AclEditorPanel.add(split, BorderLayout.CENTER);
-
+*/
     // コードエディタを表示するデスクトップペインを作成します
     CodeEditorDesktop = new JDesktopPane();
     CodeEditorDesktop2 = new JDesktopPane();
     CodeEditorDesktop.setBackground(Color.gray);
     CodeEditorDesktop2.setBackground(Color.gray);
-
+/*
     JPanel ViewerPanel = new JPanel();
     Viewer viewer = new Viewer (dvmname,dvm);
+*/
     canvas  = new ViewerCanvasW2(dvmname);
-
+/*
     JPanel panel1 = new JPanel();
     panel1.setLayout(new GridLayout(0, 3));
 
@@ -623,30 +624,18 @@ public class Newif extends JFrame implements ActionListener, NewifItface {
    * メッセージの処理を行う。
    */
   public void showMsg(DashMessage m) {
-    //System.out.println ("NewIf Call ShowMsg()");  COSMOS
-
     keyForShowMsg = treePaneModel.waitTurn();
     showMessage(m);
 
     canvas.showMsg(m, isRtype);
-    //treePaneModel.nextTurn();  →ここでは呼ばない。
-
-    /*DTM
-    synchronized (objectForSync) {
-      showMessage(m);
-    }
-    */
   }
 
   /**
    * メッセージの処理を行う。
    */
   private void showMessage(final DashMessage m) {
-    //System.out.println ("NewIf Call showMessage()"); COSMOS
-
     // specify_managerなら、木を作る。
     if (m.isSpecifyManager()) {
-      //System.out.println ("NewIf Call showMessage()-specify_manager"); COSMOS
       Runnable r = new Runnable() {
           public void run() {
             // 対象
@@ -692,7 +681,7 @@ public class Newif extends JFrame implements ActionListener, NewifItface {
       // 内部フレームの配列を取得する
       JInternalFrame[] iframes = CodeEditorDesktop.getAllFrames();
       if (iframes.length == 0 )
-        return;
+        //return;
 
       for (int i=0; i<iframes.length; i++ ) {
         if (((ps.InspectorItface)iframes[i]).isChanenged() ) {
@@ -717,13 +706,9 @@ public class Newif extends JFrame implements ActionListener, NewifItface {
       }
       for (int i=0; i<iframes.length; i++ ) {
         if (((ps.InspectorItface)iframes[i]).isChanenged() ) {
-        //if (iframes[i].getTitle().indexOf("*") != -1 ) {
           if (!((ps.InspectorItface)iframes[i]).reloadRule() ) {
             return;
           }
-
-          //iframes[i].setTitle(iframes[i].getTitle().substring(0,iframes[i].getTitle().indexOf(" ")));
-
         }
       }
       sendMessageFromACLeditor();
@@ -739,15 +724,12 @@ public class Newif extends JFrame implements ActionListener, NewifItface {
     else if (command.equals("Threads"))
       printThreads(false);
     else if (command.equals("All threads"))
-      //dumpThreads(Thread.currentThread().getThreadGroup());
       printThreads(true);
     else if (command.equals("RMI lookup"))
       printRMIlookup();
     else if (command.equals("Show"))  // ADD COSMOS
-      //dvm.showViewer ( );             // ADD COSMOS
       canvas.setVisible(true);
     else if (command.equals("Close")) // ADD COSMOS
-      //dvm.closeViewer ( );            // ADD COSMOS
       canvas.setVisible(false);
     else if (command.equals("Tile_Horizonal")) // ADD COSMOS
       setTile_H (0 ) ;                         // ADD COSMOS
