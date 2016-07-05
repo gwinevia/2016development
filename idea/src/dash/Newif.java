@@ -1849,7 +1849,7 @@ public class Newif extends JFrame implements ActionListener, NewifItface {
     // コンストラクタ
     actNewFile () { super ("",getImageIcon ("resources/new.gif")); }
     public void actionPerformed (ActionEvent e ) {
-      JOptionPane.showMessageDialog(null, "現在、この機能は使用できません。\r作成中です...");
+      JOptionPane.showMessageDialog(null, "cannot use this action");
     }
   }
 
