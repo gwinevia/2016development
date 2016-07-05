@@ -7,8 +7,8 @@ import java.io.*;
 public class DashDefaults {
 
   // デフォルトファイルのファイル名
-  //private static final String DEFAULTSFILE = "defaults.txt";
-  private static final String DEFAULTSFILE = "properties/simulator.properties";
+  private static final String DEFAULTSFILE = "defaults.txt";
+  //private static final String DEFAULTSFILE = "properties/simulator.properties";
 
 
   // DASHのディレクトリ
