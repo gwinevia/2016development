@@ -120,7 +120,7 @@ class DashTreeModel {
         lastkey = 0;
 
       waitQueue.add(key);
-      if (waitQueue.size() == 1)
+      if (lastkey > 2 || waitQueue.size() == 1)
         return key;
       /*‚±‚±‚©‚ç*/
       do {
@@ -128,11 +128,6 @@ class DashTreeModel {
       } while (waitQueue.indexOf(key) > 0);
       /*‚±‚±‚Ü‚Å*/
     }
-    /*‚±‚±‚©‚ç
-    while (waitQueue.indexOf(key) > 0)
-      try { Thread.sleep(100); } catch (InterruptedException e) { }
-    ‚±‚±‚Ü‚Å*/
-
     return key;
   }
 
@@ -183,8 +178,5 @@ class DashTreeModel {
 
     if (key != null)
       synchronized(key) { key.notify(); } // Ÿ‚Ìl‚ÌƒL[
-  }
-
-  
-    
+  }  
 }
