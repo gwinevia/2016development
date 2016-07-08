@@ -15,11 +15,9 @@ import javax.swing.*;
  * @version 1.0
  */
 
-//public abstract class ViewerCanvas2 extends JComponent
 public abstract class ViewerCanvas2 extends JPanel
 implements MouseListener, MouseMotionListener, ActionListener{
   Image buffer;     // バッファ
-  //VolatileImage buffer;     // バッファ
 
   Hashtable agTable;    // エージェントの情報
         // key: エージェント名
@@ -27,16 +25,11 @@ implements MouseListener, MouseMotionListener, ActionListener{
 
   VIcon envIcon;    // 自分の情報
   Hashtable envTable;   // 他の環境の情報(自分の情報は入ってない)
-        // key: ホスト名を含む環境名
-        // value: ViewerEnvのインスタンス
 
   // エージェントの楕円の大きさは、70x40。
   // whiteOvalは、これを70x50の矩形の下部に位置させている。
   // だから、楕円の中心は(35,25)でなく(35,30)。
   // 顔が見えた方がいいので、下部に位置させている。
-  //public static final int AGHC = 30;   // 楕円の中心の高さ
-  //public static final int ICONW = 70; // アイコンの幅
-  //public static final int ICONH = 50; // アイコンの高さ
 
   private int AGHC  = 30;   // 楕円の中心の高さ
   int ICONW = 70;   // アイコンの幅
@@ -63,7 +56,6 @@ implements MouseListener, MouseMotionListener, ActionListener{
   public static final int SPEED = 2;   // メッセージ等を動かす速さ
                // 大きくすると速くなる
                // 12の約数にすること
-  //public static int bai = 100; // アイコンの幅
   public static int w_bai = 100; // アイコンの幅
   public static int r_bai = 100; // アイコンの幅
 
@@ -153,16 +145,7 @@ implements MouseListener, MouseMotionListener, ActionListener{
       R_AGHC =  30 * r_bai / 100;
     }
 
-
-    /*
-    //envname = n;
-    //envhost = h;
     this.dvmname = dvmname;	// ADD COSMOS
-    viewer  = v;
-    */
-
-		this.dvmname = dvmname;	// ADD COSMOS
-    //newif = n;
     runmode = "non-step";
     stepCount = 0;
 
@@ -180,8 +163,6 @@ implements MouseListener, MouseMotionListener, ActionListener{
 
     PopupMenu = new JPopupMenu();
     PopupMenu.add(menuItem("全てクリア","CodeCheckResultClear",null));
-
-    //commentFont = new Font("Dialog", Font.ITALIC, 12);
 
   }
 
@@ -215,7 +196,6 @@ implements MouseListener, MouseMotionListener, ActionListener{
    */
   public void initialize() {
     buffer = createImage(1000, 700); // 適当な数値
-    //buffer = createVolatileImage(1000, 700); // 適当な数値
   }
 
   /*************************************************************************
@@ -235,13 +215,6 @@ implements MouseListener, MouseMotionListener, ActionListener{
     boolean ok = false;
     while (!ok) {
       try {
-
-        //Graphics2D g2d = (Graphics2D) g;
-        //g2d.drawImage(buffer, 0, 0, this);
-        //g2d.drawImage(buffer,null,0,0);
-
-        //g2d.setComposite(AlphaComposite.Src);
-
         g.drawImage(buffer, 0, 0, this);
         ok = true;
       } catch (NullPointerException e) {
@@ -300,80 +273,25 @@ implements MouseListener, MouseMotionListener, ActionListener{
    *   ・受信環境では環境からエージェントに送る。 という違いがあるために必要。
    * @param isR 他の環境がリポジトリならtrue
    */
-  /* 以下は未使用
-  public void showMsg(DashMessage m) {
-    synchronized (animeSync) {
-
-    if (m.to.equals(DashMessage.BCAST)) {
-      //System.out.println ("ブロードキャストのメッセージ送信");
-    }
-      isKane = m.isKane();        // Kaneかどうか取得
-
-      viewer.writeMsg(m);
-      if (toAnotherEnv)
-        showMsgToOtherEnv(m, isR);
-      else {
-        if (m.is_specifyManager())
-          specifyManager(m);
-        else if (m.to.equals("(broadcast)"))
-          showBroadcastMsg(m, isR);
-        else if (m.departure == null ||
-                 m.departure.equals(envname+"."+envhost))
-          showAgToAgMsg(m);
-        else
-          showEnvToAgMsg(m, isR);
-      }
-    }
-  }
-  */
 
   public void showMsg(DashMessage m,  boolean isR) {
     synchronized (animeSync) {
 
-    //viewer.writeMsg(m);
-    //newif.writeMsg(m);
-
-    //System.out.println(m.);
-    if (m.to.equals(DashMessage.BCAST)) {
-      showBroadcastMsg(m, isR);
-    }
-    else if (m.departure == null )  {
-      showAgToAgMsg(m);
-    }
-    else if (m.departure.equals(dvmname ) )  {
-      showAgToAgMsg(m);
-    }
-    else {
-      if (m.departure.equals(dvmname ) ) {
+      if (m.to.equals(DashMessage.BCAST)) {
+        showBroadcastMsg(m, isR);
+      }else if (m.departure == null )  {
         showAgToAgMsg(m);
-      }
-      else {
-        String s1 = m.departure;
-        String s3 = this.dvmname;
-        showEnvToAgMsg(m, isR);
-      }
-    }
-
-
-  /*
-  dvmname
-      isKane = m.isKane();        // Kaneかどうか取得
-
-      viewer.writeMsg(m);
-      if (toAnotherEnv)
-        showMsgToOtherEnv(m, isR);
-      else {
-        if (m.is_specifyManager())
-          specifyManager(m);
-        else if (m.to.equals("(broadcast)"))
-          showBroadcastMsg(m, isR);
-        else if (m.departure == null ||
-                 m.departure.equals(envname+"."+envhost))
+      }else if (m.departure.equals(dvmname ) )  {
+        showAgToAgMsg(m);
+      }else {
+        if (m.departure.equals(dvmname ) ) {
           showAgToAgMsg(m);
-        else
-          (m, isR);
+        }else {
+          String s1 = m.departure;
+          String s3 = this.dvmname;
+          showEnvToAgMsg(m, isR);
+        }
       }
-      */
     }
   }
 
@@ -384,7 +302,6 @@ implements MouseListener, MouseMotionListener, ActionListener{
    *              またはnull(リポジトリがクラスAgを生成した場合)
    * @param name  エージェント名
    */
-//public void showNewAgent(DashMessage m, String name) {
   public void showNewAgent(String origin, String name) {
     synchronized (animeSync) {
       VIconAg agt = new VIconAg(name,isRepository);
@@ -426,12 +343,6 @@ implements MouseListener, MouseMotionListener, ActionListener{
    */
   public void commentAgent(String name, String comment) {
     VIconAg target = (VIconAg)agTable.get(name);
-    /*
-    if (target == null)
-      DVM. .exit("ViewerCanvas.commentAgent(): icon \""+name+"\" not exist");
-    else
-      target.comment = comment;
-    */
   }
   /***********************************************************************
                           サブクラス依存呼出系
@@ -461,21 +372,6 @@ implements MouseListener, MouseMotionListener, ActionListener{
    * @param isR 他の環境がリポジトリならtrue
    */
   private void showMsgToOtherEnv(DashMessage m, boolean isR) {
-    /*
-    if (m.isCreateInstance()) {
-      VIcon agIcon = (VIcon)agTable.get(m.from);
-      VIcon envIcon = getEnvIcon(m.arrival, isR);
-      if( agIcon == null ){
-        agIcon = (VIcon)agTable.get(m.dummyFrom);
-      }
-      moveIcon(agIcon, agIcon, envIcon, "instantiation!");
-    } else {
-      VIcon sender = // 送信者
-        (m.from.equals("(interface)")||m.from.equals("(KaneHooker)") ? envIcon : (VIcon)agTable.get(m.from));
-      VIcon env = getEnvIcon(m.arrival, isR); // 受信者(環境)
-      moveMsg(sender, env, m.performative());
-    }
-    */
   }
 
   /**
@@ -487,9 +383,6 @@ implements MouseListener, MouseMotionListener, ActionListener{
     VIcon receiver =
       (m.to.equals("_interface")||m.to.equals("_KaneHooker") ? envIcon : (VIconAg)agTable.get(m.to));
     if (receiver == null) {
-      //System.out.println ("ViewerCanvas:showEnvToAgMsg() receiverはnull");
-      //AdipsEnv.exit("ViewerCanvas.showEnvToAgMsg(): unknown <to>. msg=\n"+
-      //m.printString());
     }
 
     if (m.departure.substring(0,1).equals("r") ) {
@@ -501,12 +394,8 @@ implements MouseListener, MouseMotionListener, ActionListener{
 
     VIcon env = getEnvIcon(m.departure, isR);
     if (env == null) {
-      //System.out.println ("ViewerCanvas:showEnvToAgMsg() envはnull");
-      //AdipsEnv.exit("ViewerCanvas.showEnvToAgMsg(): unknown <from>. msg=\n"+
-      //m.printString());
     }
 
-    //System.out.println ("ViewerCanvas:showEnvToAgMsg()->moveMsg()");
     moveMsg(env, receiver, m.performative);
   }
 
@@ -522,7 +411,6 @@ implements MouseListener, MouseMotionListener, ActionListener{
    * エージェントから１つのエージェントへのメッセージを表示する.
    */
   void showUnicastMsg(DashMessage m) {
-    //System.out.println ("ViewerCanvas:showUnicastMsg()");
     VIcon fromIcon =
       (m.from.equals("_interface")||m.from.equals("KaneHooker") ? getEnvIcon(m.from, isRepository) : (VIconAg)agTable.get(m.from));
     VIcon toIcon =
@@ -530,15 +418,6 @@ implements MouseListener, MouseMotionListener, ActionListener{
     if (fromIcon == null || toIcon == null) {
       return;
     }
-    /*
-    if (fromIcon == null || toIcon == null) {
-      System.out.println(m.from+"\n"+m.to);
-      System.out.println(fromIcon+"\n"+toIcon);
-      Thread.dumpStack();
-      AdipsEnv.exit("ViewerCanvas.showUnicastMsg(): cannot move msg:\n"+
-                    m.printString());
-    }
-    */
     moveMsg(fromIcon, toIcon, m.performative);
   }
 
@@ -553,8 +432,7 @@ implements MouseListener, MouseMotionListener, ActionListener{
 
     // 同じ環境からの場合
     if (m.departure == null || m.departure.equals(dvmname)) {
-      fromIcon =
-        (m.from.equals("_interface")||m.from.equals("_KaneHooker") ? envIcon : (VIcon)agTable.get(m.from));
+      fromIcon = (m.from.equals("_interface")||m.from.equals("_KaneHooker") ? envIcon : (VIcon)agTable.get(m.from));
 
     //他の環境からの場合
     } else {
@@ -981,7 +859,6 @@ implements MouseListener, MouseMotionListener, ActionListener{
     }
 
     // (3)新しく作る
-    //System.out.println ("ViewerCanvas:getEnvIcon()-> createEnvIcon()");
     return createEnvIcon(envname, isR);
   }
 
@@ -996,24 +873,23 @@ implements MouseListener, MouseMotionListener, ActionListener{
    * @param isR 環境がリポジトリならtrue
    */
   private VIcon createEnvIcon(String envname, boolean isR) {
-    //System.out.println ("ViewerCanvas:createEnvIcon() " + envname + "のアイコン作成");
     int x = OENVX + (envTable.size() - 1 ) * 80;
-    //if (isR ) {
-    //  x = OENVX + (envTable.size() ) * 80;
-    //}
     int y = ENVY;
     int p = envname.indexOf(":");
+    
     String ename = envname.substring(0, p);
     String hname = envname.substring(p+1);
+    System.out.println ("ViewerCanvas: " + ename + " hname: "  + hname);
     Image im = createEnvImage(isR, envname);
     VIcon env = new VIcon(x, y, im,isRepository);
+    
     envTable.put(envname, env);
-
+   
     Graphics g = getGraphics();
     drawEnvironments(g);
     Graphics bufG = buffer.getGraphics();
     drawEnvironments(bufG);
-
+    System.out.println ("ViewerCanvas: " + env);
     return env;
   }
 
@@ -1024,11 +900,9 @@ implements MouseListener, MouseMotionListener, ActionListener{
    * @param eh  環境のホスト名
    */
   Image createEnvImage(boolean isR, String dvmname) {
-    //Image image = createImage(ICONW, ICONH);
     Image image = createImage(70, 50);
     Graphics g = image.getGraphics();
     g.setColor(Color.blue);
-    //g.fillRect(0, 0, ICONW, ICONH);
     g.fillRect(0, 0, 70, 50);
 
     int p = dvmname.indexOf(":");
@@ -1040,12 +914,6 @@ implements MouseListener, MouseMotionListener, ActionListener{
     int sWidth2 = fm.stringWidth(s2);
     int sHeight = fm.getAscent();
 
-    /*
-    int x1 = (ICONW-sWidth1)/2;
-    int x2 = (ICONW-sWidth2)/2;
-    int y1 = ICONH/2;
-    int y2 = ICONH/2+sHeight;
-    */
     int x1 = (70-sWidth1)/2;
     int x2 = (70-sWidth2)/2;
     int y1 = 50/2;

@@ -35,12 +35,12 @@ public class DashMessage implements java.io.Serializable {
   /** 送信先エージェント名 */
   String to;
 
-	/** メッセージID。環境で生成されたメッセージの中で一意な1以上の整数。 */
-	long replyWith;
+  /** メッセージID。環境で生成されたメッセージの中で一意な1以上の整数。 */
+  long replyWith;
 	
-	/** 他のメッセージに対する返信メッセージの場合、そのメッセージID。
+  /** 他のメッセージに対する返信メッセージの場合、そのメッセージID。
       そうでない場合は0。*/
-	long inReplyTo;
+  long inReplyTo;
 
   /** メッセージの送信元の環境名、またはnull。
       nullの場合は、同じ環境内へのメッセージであることを表す。*/
@@ -230,5 +230,4 @@ public class DashMessage implements java.io.Serializable {
       ":arrival "      + arrival      + "\n" +
       toStringOtherAttributes(true);
   }
-
 }

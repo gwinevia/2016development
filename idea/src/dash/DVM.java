@@ -16,10 +16,10 @@ public abstract class DVM implements Runnable {
   private static boolean localOnly = false;
 
   private String tempclassname = "";
-  /** */
+
   private String name = "";
+
   /** 通信基盤モジュール */
-  //private ComInterface comInt;
   public ComInterface comInt;
 
   /** メッセージ待ちのスレッド */
@@ -74,15 +74,12 @@ public abstract class DVM implements Runnable {
       viewer = new Viewer (comInt.getDVMname(), this );
       
       //viewer.show();
-	    //changed uchiya
-	    viewer.setVisible(true);
-      
+      //changed uchiya
+      viewer.setVisible(true);
       viewer.initialize();
-    }
-    else {
-		 //viewer.show();
-		 viewer.setVisible(true);
-     
+    }else {
+      //viewer.show();
+      viewer.setVisible(true);
     }
   }
 
@@ -103,10 +100,7 @@ public abstract class DVM implements Runnable {
   // UPDATE COSMOS
 
   public void RmiModule_ReCreate() {
-  	//System.out.println("ReCreate");
     comInt = RmiModule.createNew(this, name, localOnly);
-    //creater.destroy();
-    //msgWaitThread.destroy();
 
     msgWaitThread = new Thread(dashThreads, this, "dash.DVM");
     msgWaitThread.start();
@@ -150,7 +144,6 @@ public abstract class DVM implements Runnable {
       if (DashMode.equals("on") ) {
         newif.show();
       }
-      //newif.initialize();
       newif.startMemoryWatch(); // ここでNewif.replaceConsole()する
     } else
       newif.setNonstop();
@@ -159,7 +152,7 @@ public abstract class DVM implements Runnable {
     if (useViewer && !noGUI) {
       viewer = new Viewer (comInt.getDVMname(), this );
       //viewer.show();
-	    viewer.setVisible(true);
+      viewer.setVisible(true);
       viewer.initialize();
     }
 
@@ -186,7 +179,6 @@ public abstract class DVM implements Runnable {
   public void run() {
     while(true) {
       try {
-      	//System.out.println("test");
         DashMessage msg = comInt.waitMsg();
         if (wpIndex != -1 ) {
           if (wpTab != null ) {
@@ -280,7 +272,6 @@ public abstract class DVM implements Runnable {
    * DVM宛のメッセージを処理する。
    */
   private void processDVMmsg(DashMessage msg) {
-  	//System.out.println("dvm.processDVMmsg "+msg);
     if (msg.performative.equals(DashMessage.CREATEINSTANCE)||
         msg.performative.equals(DashMessage.MOVE)) {
       // (1)ワークプレース宛の(instantiate)(move)
@@ -389,17 +380,15 @@ public abstract class DVM implements Runnable {
    */
   private void getLocalRuleset(DashMessage msg) {
     String filename = msg.getOtherAttributes(":filename");
-    String LoadDir = System.getProperty("LoadDir");
-      File f  = null;
-      Hashtable htFileList = null;
-      if (LoadDir != null ) {
-        htFileList = new Hashtable();
-        //Hashtable htFileListwk = new Hashtable();
-        StringTokenizer st = new StringTokenizer(LoadDir,";");
+    String LoadDir = System.getProperty("dash.loadpath");
+    File f  = null;
+    Hashtable htFileList = null;
+    if (LoadDir != null ) {
+      htFileList = new Hashtable();
+      StringTokenizer st = new StringTokenizer(LoadDir,";");
         while (st.hasMoreTokens()) {
           String data = st.nextToken();
           f  = new File (data);
-          //htFileListwk.clear();
           createFileList(f,htFileList, LoadDir);
           break;
         }
@@ -1002,19 +991,8 @@ public abstract class DVM implements Runnable {
         ".class";
       classfile = new File(filename);
       if (classfile.exists()){
-      //System.out.println("ベースプロセス"+classname+"が見つかりました。");
         break;
-    }//else System.out.println("ベースプロセス"+classname+"が見つかりません。");
-   /**
-	    if (!classfile.exists()) {
-        filename  = filename.substring(0,filename.indexOf("baseProcess") ) + "baseProcess" + File.separator + "dashSample" + File.separator + "DammyBP.class";
-        classfile = new File(filename);
-        if (classfile.exists()) {
-          tempclassname = "dash.DammyBP";
-          break;
-        }
-      }
-    */
+    }
       // (2)<classname>.propertiesの場合
       filename = userClassPath[i]+
         classname.replace('.', File.separatorChar)+
@@ -1023,14 +1001,6 @@ public abstract class DVM implements Runnable {
       if (classfile.exists()) {
         break;
       }
-     // if (!classfile.exists()) {
-     //   filename  = filename.substring(0,filename.indexOf("baseProcess") ) + "baseProcess" + File.separator + "dashSample" + File.separator + "SimpleWindow.properties";
-     //   classfile = new File(filename);
-     //   if (classfile.exists()) {
-     //    break;
-     //}
-     //}
-
       // (*)無い場合
       classfile = null;
     }
@@ -1137,21 +1107,17 @@ tempclassname = string;
     newif.replaceConsole();
     String dvmname = getDVMname();
     
-    String LoadDir = System.getProperty("LoadDir");
+    String LoadDir = System.getProperty("dash.loadpath");
       File f  = null;
       Hashtable htFileList = null;
       if (LoadDir != null ) {
         htFileList = new Hashtable();
-        //Hashtable htFileListwk = new Hashtable();
-        StringTokenizer st = new StringTokenizer(LoadDir,";");
-        while (st.hasMoreTokens()) {
-          String data = st.nextToken();
+        String[] st = LoadDir.split(":");
+        for (int i=0; i < st.length; i++) {
+          String data = st[i];
           f  = new File (data);
-          //htFileListwk.clear();
           createFileList(f,htFileList, LoadDir);
-          break;
         }
-
       }
 
     if (getDVMname().equals(env)) {
@@ -1159,12 +1125,7 @@ tempclassname = string;
     }
     else {
       return getLocalRuleset(filename, htFileList);
-      //return getRemoteRuleset(filename, env);
     }
-    /*
-    return getDVMname().equals(env) ?
-      getLocalRuleset(filename) : getRemoteRuleset(filename, env);
-    */
   }
 
 
@@ -1180,7 +1141,7 @@ tempclassname = string;
     File current_dir = new File(f,".");
     String file_list[] = current_dir.list();
 
-    String wkDefaultDir = DefaultDir + ";" ;
+    String wkDefaultDir = DefaultDir + "/:" ;
 
     for (int i=0; i<file_list.length; i++ ) {
       File current_file = new File(f,file_list[i]);
@@ -1195,7 +1156,6 @@ tempclassname = string;
         }
       }
       else {
-        //if (current_file.getAbsolutePath().toLowerCase().endsWith(".dash")){
         String parentpath = current_file.getParent();
         if (!parentpath.endsWith(File.separator) ) {
           parentpath += File.separator;
@@ -1364,12 +1324,6 @@ tempclassname = string;
     Vector agnames = new Vector();
     for (Enumeration e = agTable.keys(); e.hasMoreElements(); )
       agnames.addElement(e.nextElement());
-
-    /* comment out by Har
-    ScriptViewer sv =
-      new ScriptViewer(this, agnames, agname);
-    sv.show();
-    */
   }
 
   /**
@@ -1380,7 +1334,6 @@ tempclassname = string;
     StringBuffer buffer = new StringBuffer();
     BufferedReader br = null;
     try {
-      //BufferedReader br = new BufferedReader(new FileReader(file));
       br = new BufferedReader(new InputStreamReader(
                                               new FileInputStream(file.getAbsolutePath()),
                                               "JISAutoDetect"));

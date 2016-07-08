@@ -31,7 +31,6 @@ public class Newif extends JFrame implements ActionListener, NewifItface {
 
   /** ACLエディタ */
   private AclPanel aclPanel;
-  //public AclPanel aclPanel;
 
   /** ACLエディタへのメッセージを表示する部品 */
   private JTextArea receiveArea;
@@ -86,9 +85,6 @@ public class Newif extends JFrame implements ActionListener, NewifItface {
 
   /** EditMenuを表示したときのFocusedObjectを保持するため(?)の変数 */
   private EditMenuListener editMenuListener;
-
-  /** synchronized用オブジェクト */
-  ////private String objectForSync = "s";
 
   /** nextTurnのためのkeyを保持する変数 */
   Long keyForShowMsg;
@@ -240,10 +236,6 @@ public class Newif extends JFrame implements ActionListener, NewifItface {
     /* 修正内容：Windowメニュー（Windowの整列等の処理）ここまで                     */
     /**************************************************************************/
 
-    /* cout
-    if (msgfile != null)
-      menubar.add(makeMessageMenu(msgfile));
-    */
     setJMenuBar(menubar);
 
     // ツールバー
@@ -488,9 +480,6 @@ public class Newif extends JFrame implements ActionListener, NewifItface {
     return item;
   }
 
-
-
-
   /** "<?Repository>"などを置き換える。*/
   private void replaceMeta(StringBuffer buffer) {
     replaceMeta(buffer,
@@ -582,12 +571,6 @@ public class Newif extends JFrame implements ActionListener, NewifItface {
         }
       };
     SwingUtilities.invokeLater(r);
-
-    //canvas.showNewAgent ("origin",name );
-    //canvas.showNewAgent ("w1:CSMSXPCLNT01",name );
-
-
-    //treePaneModel.nextTurn();
   }
 
   /** エージェントを消す */
@@ -668,8 +651,6 @@ public class Newif extends JFrame implements ActionListener, NewifItface {
             }
           }};
       SwingUtilities.invokeLater(r);
-      //treePane.showMsg(m, dvm.getFullname(), keyForShowMsg);
-
       //treePaneModel.nextTurn(); はDashTree.showMsg()の中で呼ぶ。
     }
   }
@@ -685,7 +666,6 @@ public class Newif extends JFrame implements ActionListener, NewifItface {
 
       for (int i=0; i<iframes.length; i++ ) {
         if (((ps.InspectorItface)iframes[i]).isChanenged() ) {
-        //if (iframes[i].getTitle().indexOf("*") != -1 ) {
           Object[] options = { "OK", "CANCEL" };
 
           int ret = JOptionPane.showOptionDialog(null,
@@ -739,14 +719,6 @@ public class Newif extends JFrame implements ActionListener, NewifItface {
       setCascade ( );                          // ADD COSMOS
     else if (command.equals("Iconize All"))        // ADD COSMOS
       setIconize ( );                          // ADD COSMOS
-      //sendMessageFromACLeditor();
-
-    /* cout
-    else if (command.equals("info"))
-      printAgentInfo();
-    else if (command.equals("log"))
-      printAgentLog();
-    */
   }
 
   /** ACLエディタに入力されたメッセージを送信する */
@@ -1931,7 +1903,7 @@ public class Newif extends JFrame implements ActionListener, NewifItface {
         JInternalFrame iframe = new JInternalFrame(receiver);
         Container con = iframe.getContentPane(); //フレームの表示領域をとってくる
         Editor edit = new Editor(con);
-        edit.FileRead("C:\\dash-1.9.7h\\scripts\\cnp\\" + receiver);
+        edit.FileRead("/home/mmk/krswmmk/idea/scripts/cnp/" + receiver);
         iframe.setResizable(true);
         iframe.setMaximizable(true);
         iframe.setClosable(true);
@@ -1943,7 +1915,7 @@ public class Newif extends JFrame implements ActionListener, NewifItface {
         iframe.setVisible (true );
         CodeEditorDesktop2.setSelectedFrame (iframe );
 
-        File file = new File("C:\\dash-1.9.7h\\scripts\\cnp\\" + receiver);
+        File file = new File("/home/mmk/krswmmk/idea/scripts/cnp/" + receiver);
         dvm.addLoadQueue(file);
       }
     }
@@ -1982,12 +1954,6 @@ public class Newif extends JFrame implements ActionListener, NewifItface {
         }
       };
     SwingUtilities.invokeLater(r);
-
-    //canvas.showNewAgent ("origin",name );
-    //canvas.showNewAgent ("w1:CSMSXPCLNT01",name );
-
-
-
   }
   public void ViewerShowMsg(DashMessage m){
   }
@@ -2000,6 +1966,4 @@ public class Newif extends JFrame implements ActionListener, NewifItface {
   public Vector getAllAgentName(){
     return null;
   }
-
 }
-
