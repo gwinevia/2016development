@@ -24,7 +24,7 @@ public class JGitSample {
   	git.add().addFilepattern("Java_programming").call();
     
     // git commit
-    git.commit().setMessage("JGitSample add&commit test!").call();
+    git.commit().setMessage("JGitSample Test").call();
 
     // git push
     git.push().call();
