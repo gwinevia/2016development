@@ -20,7 +20,13 @@ public class JGitSample {
 		// Git オブジェクト作成 (このオブジェクトを操作していろいろする)
     Git git = new Git(localRepo);
 
+    // git add
   	git.add().addFilepattern("Java_programming").call();
+    
+    // git commit
     git.commit().setMessage("JGitSample add&commit test!").call();
+
+    // git push
+    git.push().call();
 	}
 }
