@@ -3,11 +3,11 @@
 #include <stdio.h>
 int main(int argc, char const *argv[])
 {
-	int iLoopCnt,jLoopCnt;
+	int iLoopCnt1,iLoopCnt2;
 
-	for(iLoopCnt=1;iLoopCnt<=9;iLoopCnt++){
-		for(jLoopCnt=1;jLoopCnt<=9;jLoopCnt++){
-			printf("%d*%d= %d\t",iLoopCnt,jLoopCnt,iLoopCnt*jLoopCnt);
+	for(iLoopCnt1=1;iLoopCnt1<=9;iLoopCnt1++){
+		for(iLoopCnt2=1;iLoopCnt2<=9;iLoopCnt2++){
+			printf("%d*%d= %d\t",iLoopCnt1,iLoopCnt2,iLoopCnt1*iLoopCnt2);
 		}
 		putchar('\n');
 	}

@@ -3,12 +3,12 @@
 #include <stdio.h>
 int main(int argc, char const *argv[])
 {
-	int iLoopCnt,jLoopCnt;
+	int iLoopCnt1,iLoopCnt2;
 
 	// iLoopCnt  三角形の高さ
-	for(iLoopCnt=1;iLoopCnt<=5;iLoopCnt++){
+	for(iLoopCnt1=1;iLoopCnt1<=5;iLoopCnt1++){
 		// jLoopCnt 表示する＊の個数
-		for(jLoopCnt=0;jLoopCnt<iLoopCnt;jLoopCnt++){
+		for(iLoopCnt2=0;iLoopCnt2<iLoopCnt1;iLoopCnt2++){
 			printf("*");
 		}
 		printf("\n");
