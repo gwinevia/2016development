@@ -17,11 +17,11 @@ int main(int argc, char const *argv[])
 		2で割った余りが0：2の倍数
 		3で割った余りが0：3の倍数
 	*/
-	if(iNum%2==0 && iNum%3==0){ 
+	if(iNum%2==0 && iNum%3==0 && iNum!=0){ 
 	 	printf("%dは2と3の公倍数です\n",iNum);
-	}else if(iNum%2==0){
+	}else if(iNum%2==0 && iNum!=0){
 	 	printf("%dは2の倍数です\n",iNum);
-	}else if(iNum%3==0){
+	}else if(iNum%3==0 && iNum!=0){
 	 	printf("%dは3の倍数です\n",iNum);
 	}else{ // その他
 	 	printf("%dは2の倍数でも3の倍数でもありません\n",iNum);
