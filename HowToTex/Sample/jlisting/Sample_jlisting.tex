@@ -1,0 +1,33 @@
+\documentclass[a4j]{jarticle}
+ 
+\usepackage{color}
+\usepackage{ascmac}
+\usepackage{graphicx}
+\usepackage{listings, jlisting}
+\renewcommand{\lstlistingname}{ソースコード}
+\lstset{
+  language=C,
+  basicstyle=\ttfamily\scriptsize,
+  commentstyle=\textit,
+  classoffset=1,
+  keywordstyle=\bfseries,
+  frame=topline,
+  framesep=5pt,
+  showstringspaces=false,
+  numbers=left,
+  stepnumber=1,
+  numberstyle=\tiny,
+  tabsize=2,
+  breaklines=true
+}
+\begin{document}
+ 
+\title{Cプログラムのソースコードを貼り付ける}
+\author{サンプル}
+
+\maketitle
+ 
+\lstinputlisting[caption={\texttt{Sample.c}},
+label={numbers1}]{Sample.c}
+ 
+\end{document}
