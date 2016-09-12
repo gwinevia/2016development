@@ -1,4 +1,4 @@
-# HowToTex
+# MemoTex
 Texを使っていく中でのメモのようなもの  
 
 * jlisting.sty
