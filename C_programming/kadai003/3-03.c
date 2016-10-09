@@ -19,6 +19,7 @@ int main(void)
 
 	printf("入れ替え前\nNum1 = %d\nNum2 = %d\n",iNum1,iNum2);
 
+	//2つの変数の値を入れ替える
 	swap(&iNum1,&iNum2);
 
 	printf("入れ替え後\nNum1 = %d\nNum2 = %d\n",iNum1,iNum2);
@@ -34,10 +35,9 @@ int main(void)
 */
 void swap(int *iNum1, int *iNum2)
 {
-	int iTmp;
+	int iTemp = *iNum1;
 
-	iTmp = *iNum1;
 	*iNum1 = *iNum2; 
-	*iNum2 = iTmp; 
+	*iNum2 = iTemp; 
 
 }
