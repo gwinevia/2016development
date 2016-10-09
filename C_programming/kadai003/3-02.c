@@ -5,12 +5,12 @@
 */
 #include <stdio.h>
 
-void bmi_fat(int iHeight, int iWeight, double *dBMI, double *dDebu, double *dIdeal);
+void bmi_fat(int iHeight, int iWeight, double *dBMI, double *dObesity, double *dIdeal);
 
 int main(void)
 {
 	int iHeight,iWeight;      //入力された身長と体重の値を格納
-	double dBMI,dDebu,dIdeal;  //BMI値，肥満度，理想体重の値を格納
+	double dBMI,dObesity,dIdeal;  //BMI値，肥満度，理想体重の値を格納
 
 	printf("身長(cm)を入力してください:");
 	scanf("%d",&iHeight);
@@ -18,10 +18,10 @@ int main(void)
 	printf("体重(kg)を入力してください:");
 	scanf("%d",&iWeight);
 
-	bmi_fat(iHeight,iWeight,&dBMI,&dDebu,&dIdeal);
+	bmi_fat(iHeight,iWeight,&dBMI,&dObesity,&dIdeal);
 
 	printf("BMI値 = %.2f\n", dBMI);
-	printf("肥満度 = %.2f(％)\n", dDebu);
+	printf("肥満度 = %.2f(％)\n", dObesity);
 	printf("理想体重 = %.2f(kg)\n", dIdeal);
 
 
@@ -33,7 +33,7 @@ int main(void)
 	引数は，身長(int型)，体重(int型)，BMI値(ポインタ型)，肥満度(ポインタ型)，理想体重(ポインタ型)
 	戻り値なし
 */
-void bmi_fat(int iHeight, int iWeight, double *dBMI, double *dDebu, double *dIdeal)
+void bmi_fat(int iHeight, int iWeight, double *dBMI, double *dObesity, double *dIdeal)
 {
 	double dHeight; //身長(m)の値を格納
 
@@ -46,5 +46,5 @@ void bmi_fat(int iHeight, int iWeight, double *dBMI, double *dDebu, double *dIde
 	*dIdeal = (iHeight - 100) * 0.9;
 
 	//肥満度を算出
-	*dDebu = ((iWeight - *dIdeal) / *dIdeal) * 100;
+	*dObesity = ((iWeight - *dIdeal) / *dIdeal) * 100;
 }
