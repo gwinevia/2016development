@@ -12,6 +12,7 @@ int main(void)
 
 	for(iLoopCnt=0;iLoopCnt<5;iLoopCnt++)
 	{
+		//アドレスを表示
 		printf("%p\n",&iArray[iLoopCnt]);
 	}
 
