@@ -8,3 +8,8 @@
 	- ```git push -u origin master```  
 	- ```git push --set-upstream origin development```
 
+## commit関連
+
+* 特定のファイルを，あるコミットの時の状態に戻したい時  
+	```git checkout [コミット番号] [ファイルパス]```
+
