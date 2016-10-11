@@ -41,29 +41,32 @@ public class JGitShowCommitMsgLog {
 		// Git オブジェクト作成 (このオブジェクトを操作していろいろする)
     Git git = new Git(localRepo);
 
-    DiffAlgorithm diffAlgorithm = DiffAlgorithm.getAlgorithm(
-    								localRepo.getConfig().getEnum(ConfigConstants.CONFIG_DIFF_SECTION,
-                    null, ConfigConstants.CONFIG_KEY_ALGORITHM,
-                    SupportedAlgorithm.HISTOGRAM));
-    ObjectReader reader = localRepo.newObjectReader();
-
     // git log
-    ObjectId head = localRepo.resolve(Constants.HEAD);
     Iterable<RevCommit> log = git.log().add(head).setMaxCount(1).call();
     for (RevCommit rev : log) {
-        //System.out.println("commit:\t" + rev.getName() + "\tcommit_msg:" + rev.getShortMessage());
+        System.out.println("commit:\t" + rev.getName() + "\tcommit_msg:" + rev.getShortMessage());
     }
 
-    DiffFormatter diffFormatter = new DiffFormatter(System.out);
-    diffFormatter.setRepository(localRepo);
-
-		AbstractTreeIterator commitTreeIterator = prepareTreeParser(localRepo,Constants.HEAD);
-		FileTreeIterator workTreeIterator = new FileTreeIterator(localRepo);
-		List<DiffEntry> diffEntries = diffFormatter.scan(commitTreeIterator, workTreeIterator);
+    // Get the id of the tree associated to the two commits
+		ObjectId head = localRepo.resolve("HEAD^{tree}");
+		ObjectId previousHead = localRepo.resolve("HEAD~^{tree}");
 		
-		for( DiffEntry entry : diffEntries ) {
-		  System.out.println( "Entry: " + entry + ", from: " + entry.getOldId() + ", to: " + entry.getNewId() );
-		  diffFormatter.format(entry);
+		// Instanciate a reader to read the data from the Git database
+		ObjectReader reader = localRepo.newObjectReader();
+		
+		// Create the tree iterator for each commit
+		CanonicalTreeParser oldTreeIter = new CanonicalTreeParser();
+		oldTreeIter.reset(reader, previousHead);
+		CanonicalTreeParser newTreeIter = new CanonicalTreeParser();
+		newTreeIter.reset(reader, head);
+		List<DiffEntry> listDiffs = git.diff().setOldTree(oldTreeIter).setNewTree(newTreeIter).call();
+		
+		// Simply display the diff between the two commits
+		for (DiffEntry diff : listDiffs) {
+		  System.out.println(diff);
+		  DiffFormatter formatter = new DiffFormatter(System.out);
+			formatter.setRepository(localRepo);
+			formatter.format(diff);
 		}
   }
 }
