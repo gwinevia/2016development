@@ -26,9 +26,9 @@ public class JGitShowLog {
 	public static void main(String[] args) throws Exception {
 
     // ローカルリポジトリの指定
-		FileRepository localRepo = new FileRepository(localPath + "/.git");
+	FileRepository localRepo = new FileRepository(localPath + "/.git");
 		
-		// Git オブジェクト作成 (このオブジェクトを操作していろいろする)
+	// Git オブジェクト作成 (このオブジェクトを操作していろいろする)
     Git git = new Git(localRepo);
 
     DiffAlgorithm diffAlgorithm = DiffAlgorithm.getAlgorithm(
