@@ -41,15 +41,15 @@ public class JGitShowCommitMsgLog {
 		// Git オブジェクト作成 (このオブジェクトを操作していろいろする)
     Git git = new Git(localRepo);
 
-    // git log
-    Iterable<RevCommit> log = git.log().add(head).setMaxCount(1).call();
-    for (RevCommit rev : log) {
-        System.out.println("commit:\t" + rev.getName() + "\tcommit_msg:" + rev.getShortMessage());
-    }
-
     // Get the id of the tree associated to the two commits
 		ObjectId head = localRepo.resolve("HEAD^{tree}");
 		ObjectId previousHead = localRepo.resolve("HEAD~^{tree}");
+
+		// // git log
+  //   Iterable<RevCommit> log = git.log().add(head).setMaxCount(1).call();
+  //   for (RevCommit rev : log) {
+  //       System.out.println("commit:\t" + rev.getName() + "\tcommit_msg:" + rev.getShortMessage());
+  //   }
 		
 		// Instanciate a reader to read the data from the Git database
 		ObjectReader reader = localRepo.newObjectReader();
