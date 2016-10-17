@@ -1,7 +1,6 @@
-# IDEA/DASH
-2016/07/07までに変更した点を[0707.md](http://alpha.sf.cs.it-chiba.ac.jp/gitbucket/Momokokarasawa/IDEA_DASH/blob/master/0707.md)に記述  
+# IDEA/DASH 
 今後の変更点に関してはコミットメッセージに記述する予定  
-また，クラス，メソッド等に関するメモ等を[Memo](http://alpha.sf.cs.it-chiba.ac.jp/gitbucket/Momokokarasawa/IDEA_DASH/tree/master/Memo)におく  
+また，クラス，メソッド等に関するメモ等を[Memo](https://github.com/gwinevia/2016development/tree/master/idea/IDEA_DASH_Memo)におく  
 
 ## ファイルの構成
 * classes/
