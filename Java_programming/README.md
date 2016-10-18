@@ -17,3 +17,6 @@ SHAやコミットメッセージ，変更内容など
 ## JOptionPane
 * JOptionPaneTest.java  
 メッセージウィンドウを表示するプログラム
+
+## MySQL関連
+* JavaMysqlTest.java
