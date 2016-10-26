@@ -54,6 +54,7 @@ public class JGitShowCommitMsgLog {
 		  DiffFormatter formatter = new DiffFormatter(System.out);
 			formatter.setRepository(localRepo);
 			formatter.format(diff);
+			System.out.println(diff.getChangeType() + "  " +diff.getNewPath());
 		}
   }
 }
