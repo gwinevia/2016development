@@ -1,7 +1,6 @@
 //第4回C言語課題(4)
 //構造体employee型の変数を配列で5つ宣言し,BMI値,肥満率,理想体重を求めた後,BMI値の昇順でソートして表示する
 #include <stdio.h>
-#include <string.h>
 
 struct employee{
 	int number;     //社員番号
@@ -27,16 +26,16 @@ int main(void)
               {5,"yamada",155.3,55.7,0.0,0.0,0.0},              
   };
   
-  struct employee *p = employees; //構造体employeeのポインタ宣言
+  struct employee *pEmployees = employees; //構造体employeeのポインタ宣言
 
   int iLC; //ループ用変数
 
 
   //BMI値,肥満率,理想体重を計算する
-  bmi_func(p);
+  bmi_func(pEmployees);
 
   //BMI値の昇順でソートする
-  sort(p);
+  sort(pEmployees);
 
   //結果出力
   for(iLC=0;iLC<5;iLC++)
