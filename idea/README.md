@@ -19,6 +19,9 @@
 * build.xml Ant用ビルドファイル
 * defaults.txt DASH設定ファイル
 
+## 起動
+* IDEA:```java -Xms256M -Xmx256M -jar Idea.jar```
+
 ## 参考
 * [最新版DL](http://uchiya.web.nitech.ac.jp/idea/index.html#download)
 * [IDEAマニュアル](http://uchiya.web.nitech.ac.jp/idea/html/idea_manual/index.html)
