@@ -20,3 +20,8 @@ SHAやコミットメッセージ，変更内容など
 
 ## MySQL関連
 * JavaMysqlTest.java
+* JavaMysql_DashLog_Test.java
+
+## 特定ディレクトリのファイル更新をチェックする
+* AutoDirCheck.java
+* AutoDirCheckClient.java
