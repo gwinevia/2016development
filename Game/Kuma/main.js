@@ -7,6 +7,8 @@ window.onload = function(){
     core.fps = 15;
 
     var score = 0;
+    var timeLeft = 5 * core.fps;
+
 
     core.onload = function(){
         var bear = new Sprite(32,32);
@@ -26,7 +28,21 @@ window.onload = function(){
         scoreLabel.x = 200;
         scoreLabel.y = 5;
 
+        var timeLabel = new Label('Time: ?');
+        timeLabel.x = 5;
+        timeLabel.y = 5;
+
+        core.on('enterframe', function(){
+            timeLeft--;
+            timeLabel.text = 'Time: ' + timeLeft;
+            if (timeLeft <= 0) {
+                alert('Your score: ' + score);
+                this.stop();
+            }
+        })
+
         core.rootScene.addChild(scoreLabel);
+        core.rootScene.addChild(timeLabel);
         core.rootScene.addChild(bear);
     }
 
