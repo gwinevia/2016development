@@ -21,21 +21,36 @@ window.onload = function(){
         bear.y = 0;
 
         bear.addEventListener('enterframe', function(){
+            if(core.input.right) this.x += 5;
 
+            //intersect
+            if (this.intersect(enemy)) {
+                //label.text = 'hit!!';
+            }
+
+            //within
+            if (this.within(enemy,10)) {
+                label.text = 'HIT!!';
+            }
         });
+
+        var enemy = new Sprite(32,32);
+        enemy.image = core.assets['chara1.png'];
+        enemy.x = 80;
+        enemy.y = 0;
+        enemy.frame  =5;
 
         var label = new Label();
         label.x = 280;
         label.y = 5;
         label.color = 'red';
         label.font = '14px "Arial"';
-        label.text = '0';
-        label.on('enterframe',function(){
-            label.text = (core.frame / core.fps).toFixed(2);
-        })
+
 
         core.rootScene.addChild(label);
         core.rootScene.addChild(bear);
+        core.rootScene.addChild(enemy);
+
     }
 
     core.start();
