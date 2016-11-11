@@ -1,0 +1,5 @@
+enchant();
+
+window.onload = function(){
+
+}
