@@ -24,3 +24,5 @@
 	- その他
 * idea
 	- IDEA/DASH
+* Game
+	- ゲーム関連
