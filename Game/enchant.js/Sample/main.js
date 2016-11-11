@@ -31,17 +31,27 @@ window.onload = function(){
                 Sprite.call(this, 32, 32);
                 this.x = x;
                 this.y = y;
+                this.frame = rand(5);
+                this.opacity = rand(100) / 100;
                 this.image = core.assets['chara1.png'];
 
                 this.on('enterframe', function(){
-                    this.x += 5;
+                    this.rotate(rand(10));
                 });
+
                 core.rootScene.addChild(this);
             }
         });
 
-        var bear = new Bear(0,100);
+        var bears = [];
+        for (var i = 0; i < 100; i++){
+            bears[i] = new Bear(rand(320),rand(320)); 
+        }
     }
 
     core.start();
 };
+
+function rand(n){
+    return Math.floor(Math.random() * (n+1));
+}
