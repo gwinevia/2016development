@@ -19,12 +19,14 @@ window.onload = function(){
         bear.image = core.assets['chara1.png'];
         bear.x = 0;
         bear.y = 0;
+        this.frame = 0;
 
         bear.addEventListener('enterframe', function(){
-            this.x += 10;
+            this.x += 5;
+            this.frame = this.age % 3 + 5;
             if (this.x > 320) this.x = 0;
-            this.rotate(2);
-            this.scale(1.01,1.01)
+            // this.rotate(2);
+            // this.scale(1.01,1.01)
         })
 
         core.rootScene.addChild(bear);
