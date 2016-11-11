@@ -30,7 +30,13 @@ window.onload = function(){
 
             //within
             if (this.within(enemy,10)) {
-                label.text = 'HIT!!';
+                //label.text = 'HIT!!';
+                
+                core.pushScene(gameOverScene);
+                //Sceneを取り払い前のSceneに戻るにはpopScene()
+                //Sceneを削除するにはremoveScene()
+                
+                core.stop();
             }
         });
 
@@ -39,6 +45,10 @@ window.onload = function(){
         enemy.x = 80;
         enemy.y = 0;
         enemy.frame  =5;
+
+        var gameOverScene = new Scene();
+        gameOverScene.backgroundColor = 'black';
+
 
         var label = new Label();
         label.x = 280;
