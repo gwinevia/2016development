@@ -22,12 +22,22 @@ window.onload = function(){
         this.frame = 0;
 
         bear.addEventListener('enterframe', function(){
-            this.x += 5;
-            this.frame = this.age % 3 + 5;
-            if (this.x > 320) this.x = 0;
-            // this.rotate(2);
-            // this.scale(1.01,1.01)
-        })
+            if (core.input.left) this.x -= 5;
+            if (core.input.right) this.x += 5;
+            if (core.input.up) this.y -= 5;
+            if (core.input.down) this.y += 5;
+
+        });
+
+        bear.on('touchstart', function(){
+            core.rootScene.removeChild(this);
+
+        });
+
+        core.rootScene.on('touchstart', function(e){
+            bear.x = e.x;
+            bear.y = e.y;
+        });
 
         core.rootScene.addChild(bear);
     }
