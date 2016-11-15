@@ -9,6 +9,9 @@ public class AutoDirCheck {
 
   // 更新の監視対象となるディレクトリ
   private static final File TARGET_DIR = new File("/home/mmk/krswmmk/Java_programming");
+  private static final File[] files = TARGET_DIR.listFiles();
+  static int add_file_flag = files.length;
+  static int check_flag = 0;
 
   protected boolean fStop;          //（2）スレッドの停止フラグ
   protected List    fRegistereds;   //（3）登録されているファイルのリスト
@@ -40,6 +43,10 @@ public class AutoDirCheck {
     checkRemoved();  // 削除チェック
     checkNew();      // 新規チェック
     checkModified(); // 更新チェック
+    if (check_flag > 0){
+      check_flag = 0;
+      System.out.println("checked");
+    }
   }
 
   /**
@@ -53,7 +60,8 @@ public class AutoDirCheck {
       if (!file.exists()) {
         // 削除処理
         it.remove();
-        System.out.println(filename + " が削除されました");
+          check_flag++;
+        //System.out.println(filename + " が削除されました");
       }
     }
   }
@@ -67,7 +75,12 @@ public class AutoDirCheck {
       if (!fRegistereds.contains(files[i])) {
         // 追加処理
         fRegistereds.add(files[i]);
-        System.out.println(files[i] + " が追加されました");
+        if(add_file_flag == 0){
+          check_flag++;
+            //System.out.println(files[i] + " が追加されました");
+        }else {
+            add_file_flag--;
+        }
       }
     }
   }
@@ -88,7 +101,8 @@ public class AutoDirCheck {
         // 更新処理
         if (lastModified.longValue() < newLastModified) {
           fLastModifieds.put(filename, new Long(newLastModified));
-          System.out.println(filename + " が更新されました");
+          check_flag++;
+          //System.out.println(filename + " が更新されました");
         }
       }
     }
