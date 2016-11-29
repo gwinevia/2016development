@@ -25,3 +25,7 @@ SHAやコミットメッセージ，変更内容など
 ## 特定ディレクトリのファイル更新をチェックする
 * AutoDirCheck.java
 * AutoDirCheckClient.java
+
+## その他
+* lastIndexOf_test.java  
+indexOf／lastIndexOfメソッドを使用したプログラム

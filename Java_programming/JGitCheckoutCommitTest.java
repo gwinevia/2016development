@@ -28,13 +28,14 @@ public class JGitCheckoutCommitTest {
 
     ObjectId headForCommitLog = localRepo.resolve("HEAD");
     // git log
-    Iterable<RevCommit> log = git.log().add(headForCommitLog).setMaxCount(2).call();
+    Iterable<RevCommit> log = git.log().add(headForCommitLog).setMaxCount(5).call();
     for (RevCommit rev : log) {
-        System.out.println("commit:\t" + rev.getName() + "\tcommit_msg:" + rev.getShortMessage());
-        if(test == 1){
-    			git.checkout().setName(rev.getName()).call();
+        //System.out.println("commit:\t" + rev.getName() + "\tcommit_msg:" + rev.getShortMessage());
+        if(rev.getShortMessage().equals("line del")){
+        	System.out.println("commit:\t" + rev.getName() + "\tcommit_msg:" + rev.getShortMessage());
+        	
+    			git.checkout().setStartPoint(rev.getName()).addPath("test.txt").call();
     		}
-        test++;
     }
 
   }
