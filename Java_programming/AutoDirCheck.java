@@ -8,15 +8,21 @@ import java.util.Map;
 public class AutoDirCheck {
 
   // 更新の監視対象となるディレクトリ
-  private static final File TARGET_DIR = new File("/home/mmk/krswmmk/Java_programming");
-  private static final File[] files = TARGET_DIR.listFiles();
-  static int add_file_flag = files.length;
+  private static File TARGET_DIR;
+  private static File[] files;
+  static int add_file_flag = 0;
   static int check_flag = 0;
 
   protected boolean fStop;          //（2）スレッドの停止フラグ
   protected List    fRegistereds;   //（3）登録されているファイルのリスト
   protected Map     fLastModifieds; //（4）登録されているファイルの最終更新時刻
 
+
+  public void setTARGET_DIR(String path){
+    TARGET_DIR = new File(path);
+    files = TARGET_DIR.listFiles();
+    add_file_flag = files.length;
+  }
   /**
    * 更新チェックの開始
    */
