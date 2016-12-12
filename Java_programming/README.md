@@ -29,3 +29,5 @@ SHAやコミットメッセージ，変更内容など
 ## その他
 * lastIndexOf_test.java  
 indexOf／lastIndexOfメソッドを使用したプログラム
+* readPDF.java  
+shコマンドを実行するプログラム
