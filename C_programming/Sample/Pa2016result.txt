@@ -1,0 +1,7 @@
+順位 チーム名 勝率
+1 Fighters   0.621
+2 Hawks      0.606
+3 Marines    0.514
+4 Lions      0.457
+5 Eagles     0.443
+6 Buffaloes  0.407
